@@ -1,2 +1,2 @@
 # geospatial-metadata-catalogue
-Docker composition of a geospatial metadata catalogue solution including OGC services harvesting capabilities
+Docker based composition of a geospatial metadata catalogue solution including OGC services harvesting capabilities
