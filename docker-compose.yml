@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+#
+# Front zone containers
+  proxy:
+    build: ./front-toolkit
+    restart: unless-stopped
+    container_name: proxy4geometoc
+    ports:
+      - 80:80
+    volumes:
+      - vhost.d:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - apps
+
+  portainer:
+    image: portainer/portainer:latest
+    container_name: portainer4geometoc
+    restart: unless-stopped
+    depends_on:
+      - proxy
+    environment:
+      - VIRTUAL_HOST=portainer.sdi.elasticlabs.co
+      - VIRTUAL_PORT=9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/portainer/data:/data
+    networks:
+      - apps
+
+#
+# Applications
+  geonetwork:
+    build: ./geonetwork
+    container_name: geonetwork4catalogue
+    restart: unless-stopped
+    depends_on: proxy
+    environment:
+      - VIRTUAL_HOST=geonetwork.sdi.elasticlabs.co
+      - VIRTUAL_PORT=
+    volumes:
+      - 
+    networks:
+      - apps
+      - databases
+
+volumes:
+  vhost.d:
+  html:
+
+networks:
+  apps:
+  databases:
