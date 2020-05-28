@@ -1,0 +1,57 @@
+# Set default no argument goal to help
+.DEFAULT_GOAL := help
+
+# Ensure that errors don't hide inside pipes
+SHELL         = /bin/bash
+.SHELLFLAGS   = -o pipefail -c
+
+# Allow a custom docker-compose project name, if the following variable is set (no spaces)
+DC_PROJECT?=
+ifeq ($(strip $(DC_PROJECT)),)
+  override DC_PROJECT:=$(notdir $(shell pwd))
+  DOCKER_COMPOSE:= docker-compose
+else
+  DOCKER_COMPOSE:= docker-compose --project-name $(DC_PROJECT)
+endif
+
+# Every command is a PHONY, to avoid file naming confliction -> strengh comes from good habits!
+.PHONY: help
+help:
+	@echo "=============================================================================="
+	@echo " Geospatial Metadata Catalogue complete SDI  https://github.com/elasticlabs/geospatial-metadata-catalogue "
+	@echo " "
+	@echo "Hints for developers:"
+	@echo "  make proxy-up                        # Initialize front proxy entrypoint (test : access portainer from its URL"
+	@echo "  make up                              # With working proxy, brings up the SDI"
+	@echo "  make build                           # Build Geonetwork and Geoserver images"
+	@echo "  make logs                            # Follows whole SDI logs (Geoserver, Geonetwork, PostGIS, Client app)"
+	@echo "  make down                            # Brings the SDI down. Proxy, portainer and monitoring tools will remain alive"
+	@echo "  make cleanup                         # During development, does a complet hard cleanup of images, containers, networks, volumes & data of the SDI"
+	@echo "  make reset                           # Soft reboot of the whole SDI"
+	@echo "  make hard-reset                      # All configuration except data and databases is deleted, before reboot"
+	@echo "  make disaster-recovery               # Saves volumes to ../YYYYMMdd_SDI_Voumes then erases all data, databases, configuration, containers and networks involved in the SDI, ultimately recreating a fresh one"
+	@echo "=============================================================================="
+
+proxy-up:
+	docker-compose up -d --build portainer
+
+up:
+	docker-compose up -d geonetwork
+	docker-compose up -d geoserver
+
+build:
+	docker-compose build geonetwork
+	docker-compose build geoserver
+
+logs:
+	docker-compose logs --follow
+
+down:
+	docker-compose down
+
+reset: down up wait
+
+hardreset: pull build reset 
+
+wait:
+	sleep 5

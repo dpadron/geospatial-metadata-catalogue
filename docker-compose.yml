@@ -5,10 +5,10 @@ services:
 # Front zone containers
   proxy:
     build: ./front-toolkit
-    restart: unless-stopped
-    container_name: proxy4geometoc
+    restart: always
+    container_name: proxy4${COMPOSE_PROJECT_NAME}
     ports:
-      - 80:80
+      - 443:443
     volumes:
       - vhost.d:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
@@ -16,10 +16,12 @@ services:
     networks:
       - apps
 
+#
+# Admin toolkit
   portainer:
     image: portainer/portainer:latest
-    container_name: portainer4geometoc
-    restart: unless-stopped
+    container_name: portainer4${COMPOSE_PROJECT_NAME}
+    restart: always
     depends_on:
       - proxy
     environment:
@@ -31,25 +33,69 @@ services:
     networks:
       - apps
 
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: pgadmin4${COMPOSE_PROJECT_NAME}
+    expose: "80"
+    volumes:
+      - '/private/var/lib/pgadmin:/var/lib/pgadmin'
+      - '/tmp/servers.json:/servers.json'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=geometoc@elasticlabs.co
+      - PGADMIN_DEFAULT_PASSWORD=geometoc
+      - VIRTUAL_HOST=pgadmin.sdi.elasticlabs.co
+      - VIRTUAL_PORT=80
+    networks:
+      - apps
+
 #
 # Applications
   geonetwork:
     build: ./geonetwork
-    container_name: geonetwork4catalogue
+    container_name: geonetwork4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
-    depends_on: proxy
+    expose: "8080"
     environment:
       - VIRTUAL_HOST=geonetwork.sdi.elasticlabs.co
-      - VIRTUAL_PORT=
+      - VIRTUAL_PORT=8080
     volumes:
-      - 
+      - geonetwork-base:/usr/local/tomcat/webapps/geonetwork/WEB-INF
     networks:
       - apps
       - databases
 
+  geoserver:
+    build: ./geoserver
+    container_name: geoserver4${COMPOSE_PROJECT_NAME}
+    restart: unless-stopped
+    expose: "8080"
+    environment:
+      - VIRTUAL_HOST=geoserver.sdi.elasticlabs.co
+      - VIRTUAL_PORT=8080
+    volumes:
+      - geoserver-data:/var/local/geoserver
+      - geoserver-exts:/var/local/geoserver-exts   
+    env_file:
+      - ./scripts/docker/env/${SET_DOCKER_ENV}/geoserver.env
+    networks:
+      - apps
+      - databases
+
+#
+# Backend databases & Admin tools
+
+
 volumes:
   vhost.d:
+    name: ${COMPOSE_PROJECT_NAME}-proxy-vhosts
   html:
+    name: ${COMPOSE_PROJECT_NAME}-proxy-statics
+  geonetwork-base:
+    name: ${COMPOSE_PROJECT_NAME}-geonetwork-base
+  geoserver-exts:
+    name: ${COMPOSE_PROJECT_NAME}-geoserver-exts
+  geoserver-data:
+    name: ${COMPOSE_PROJECT_NAME}-geoserver-data
 
 networks:
   apps:

@@ -18,7 +18,8 @@ RUN set -x \
 	&& rm -rf /var/lib/apt/lists/*
 
 # GeoServer
-ADD conf/geoserver.xml /usr/local/tomcat/conf/Catalina/localhost/geoserver.xml
+#ADD conf/geoserver.xml /usr/local/tomcat/conf/Catalina/localhost/geoserver.xml
+ADD conf/ROOT.xml /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
 RUN mkdir ${GEOSERVER_DATA_DIR} \
     && mkdir ${GEOSERVER_INSTALL_DIR} \
 	&& cd ${GEOSERVER_INSTALL_DIR} \

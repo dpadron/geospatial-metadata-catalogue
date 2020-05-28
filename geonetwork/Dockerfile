@@ -23,7 +23,7 @@ RUN curl -fSL -o $GN_FILE \
      mv $GN_FILE ../deploy/$GN_FILE 
 
 #Copy context file
-COPY ./ROOT.xml $CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
+COPY conf/ROOT.xml $CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
 
 #Set geonetwork data dir
 COPY ./docker-entrypoint.sh /entrypoint.sh
