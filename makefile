@@ -39,8 +39,7 @@ proxy-up:
 
 .PHONY: up
 up:
-	$(DOCKER_COMPOSE) up --f docker-compose.yml -d geonetwork --remove-orphans
-	$(DOCKER_COMPOSE) up --f docker-compose.yml -d geoserver --remove-orphans
+	$(DOCKER_COMPOSE) up --f docker-compose.yml -d geonetwork geoserver --remove-orphans
 
 .PHONY: build
 build:
@@ -72,9 +71,9 @@ cleanup:
 .PHONY: cleanup-volumes
 cleanup-volumes:
 	# Delete all hosted persistent data available in volumes
-	docker volume rm -f $(DC_PROJECT)-geonetwork-base
-	docker volume rm -f $(DC_PROJECT)-geoserver-exts
-	docker volume rm -f $(DC_PROJECT)-geoserver-data
+	docker volume rm -f $(DC_PROJECT)_geonetwork-base
+	docker volume rm -f $(DC_PROJECT)_geoserver-exts
+	docker volume rm -f $(DC_PROJECT)_geoserver-data
 	# Remove all dangling docker volumes
 	docker volume rm $(shell docker volume ls -qf dangling=true)
 
