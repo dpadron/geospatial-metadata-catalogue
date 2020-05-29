@@ -2,37 +2,7 @@ version: '3'
 
 services:
 #
-# Front zone containers
-  proxy:
-    build: ./front-toolkit
-    restart: always
-    container_name: proxy4${COMPOSE_PROJECT_NAME}
-    ports:
-      - 443:443
-    volumes:
-      - vhost.d:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    networks:
-      - apps
-
-#
 # Admin toolkit
-  portainer:
-    image: portainer/portainer:latest
-    container_name: portainer4${COMPOSE_PROJECT_NAME}
-    restart: always
-    depends_on:
-      - proxy
-    environment:
-      - VIRTUAL_HOST=portainer.sdi.elasticlabs.co
-      - VIRTUAL_PORT=9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/portainer/data:/data
-    networks:
-      - apps
-
   pgadmin4:
     image: dpage/pgadmin4
     container_name: pgadmin4${COMPOSE_PROJECT_NAME}
@@ -86,10 +56,6 @@ services:
 
 
 volumes:
-  vhost.d:
-    name: ${COMPOSE_PROJECT_NAME}-proxy-vhosts
-  html:
-    name: ${COMPOSE_PROJECT_NAME}-proxy-statics
   geonetwork-base:
     name: ${COMPOSE_PROJECT_NAME}-geonetwork-base
   geoserver-exts:
