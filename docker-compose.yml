@@ -6,7 +6,8 @@ services:
   pgadmin4:
     image: dpage/pgadmin4
     container_name: pgadmin4${COMPOSE_PROJECT_NAME}
-    expose: "80"
+    expose: 
+      - "80"
     volumes:
       - '/private/var/lib/pgadmin:/var/lib/pgadmin'
       - '/tmp/servers.json:/servers.json'
@@ -24,7 +25,8 @@ services:
     build: ./geonetwork
     container_name: geonetwork4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
-    expose: "8080"
+    expose: 
+      - "8080"
     environment:
       - VIRTUAL_HOST=geonetwork.sdi.elasticlabs.co
       - VIRTUAL_PORT=8080
@@ -38,7 +40,8 @@ services:
     build: ./geoserver
     container_name: geoserver4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
-    expose: "8080"
+    expose: 
+      - "8080"
     environment:
       - VIRTUAL_HOST=geoserver.sdi.elasticlabs.co
       - VIRTUAL_PORT=8080
@@ -57,11 +60,8 @@ services:
 
 volumes:
   geonetwork-base:
-    name: ${COMPOSE_PROJECT_NAME}-geonetwork-base
   geoserver-exts:
-    name: ${COMPOSE_PROJECT_NAME}-geoserver-exts
   geoserver-data:
-    name: ${COMPOSE_PROJECT_NAME}-geoserver-data
 
 networks:
   apps:
