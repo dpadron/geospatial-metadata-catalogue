@@ -26,7 +26,7 @@ RUN curl -fSL -o $GN_FILE \
 COPY conf/ROOT.xml $CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
 
 #Set geonetwork data dir
-COPY ./docker-entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["catalina.sh", "run"]
