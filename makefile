@@ -21,16 +21,16 @@ help:
 	@echo " Geospatial Metadata Catalogue complete SDI  https://github.com/elasticlabs/geospatial-metadata-catalogue "
 	@echo " "
 	@echo "Hints for developers:"
-	@echo "  make proxy-up               # Initialize front proxy entrypoint (test : access portainer from its URL"
+	@echo "  make proxy-up               # Initialize front proxy entrypoint"
 	@echo "  make up                     # With working proxy, brings up the SDI"
 	@echo "  make build                  # Build Geonetwork and Geoserver images"
 	@echo "  make logs                   # Follows whole SDI logs (Geoserver, Geonetwork, PostGIS, Client app)"
-	@echo "  make down                   # Brings the SDI down. Proxy, portainer and monitoring tools will remain alive"
-	@echo "  make cleanup                # During development, does a complet hard cleanup of images, containers, networks, volumes & data of the SDI"
+	@echo "  make down                   # Brings the SDI down. "
+	@echo "  make cleanup                # Complete hard cleanup of images, containers, networks, volumes & data of the SDI"
 	@echo "  make reset                  # Soft reboot of the whole SDI"
-	@echo "  make update                 # TODO : Update the whole stack"
+	@echo "  make update                 # Update the whole stack"
 	@echo "  make hard-reset             # All configuration except data and databases is deleted, then rebuilt"
-	@echo "  make disaster-recovery      # Saves volumes to ../YYYYMMdd_SDI_Voumes then erases all data, databases, configuration, containers and networks involved in the SDI, ultimately recreating a fresh one"
+	@echo "  make disaster-recovery      # Saves volumes to ../YYYYMMdd_SDI_Voumes then erases all containers and persistent volumes involved in the SDI, ultimately recreating a fresh one"
 	@echo "=============================================================================="
 
 .PHONY: proxy-up
@@ -77,16 +77,19 @@ cleanup-volumes:
 	docker volume rm -f $(DC_PROJECT)-geoserver-data
 	# Remove all dangling docker volumes
 	docker volume rm $(shell docker volume ls -qf dangling=true)
-	
+
+.PHONY: update
+update: pull up wait
+	docker image prune
+
 .PHONY: reset
 reset: down up wait
 
-.PHONY: update
-update: pull up
-	docker image prune
-
 .PHONY: hard-reset
-hard-reset: cleanup build reset 
+hard-reset: cleanup build up wait
+
+.PHONY: disaster-recovery
+disaster-recovery: cleanup cleanup-volumes pull build up wait
 
 .PHONY: wait
 wait: 
