@@ -10,3 +10,15 @@ Docker based composition of a geospatial metadata catalogue solution including O
 #### Repository clone & application build
 * Clone this repository and go to the `geospatial-metadata-portal` directory.
 * Build the application using `sudo make build && sudo make proxy-up && sudo make wait && sudo make up`
+
+#### Basic administration commands
+`make proxy-up`               # Initialize front proxy entrypoint
+`make up`                     # With working proxy, brings up the SDI
+`make build`                  # Build Geonetwork and Geoserver images
+`make logs`                   # Follows whole SDI logs (Geoserver, Geonetwork, PostGIS, Client app)
+`make down`                   # Brings the SDI down. 
+`make cleanup`                # Complete hard cleanup of images, containers, networks, volumes & data of the SDI
+`make reset`                  # Soft reboot of the whole SDI
+`make update`                 # Update the whole stack
+`make hard-reset`             # All configuration except data and databases is deleted, then rebuilt
+`make disaster-recovery`      # Saves volumes to ../YYYYMMdd_SDI_Voumes then erases all containers and persistent volumes involved in the SDI, ultimately recreating a fresh one
