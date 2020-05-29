@@ -5,16 +5,6 @@
 SHELL         = /bin/bash
 .SHELLFLAGS   = -o pipefail -c
 
-# Allow a custom docker-compose project name, if the following variable is set (no spaces)
-DC_PROJECT?=metadata-catalogue
-ifeq ($(strip $(DC_PROJECT)),)
-  override DC_PROJECT:=$(notdir $(shell pwd))
-  DOCKER_COMPOSE:= docker-compose
-else
-  DOCKER_COMPOSE:= docker-compose --project-name $(DC_PROJECT)
-  echo "COMPOSE_PROJECT_NAME=$(DC_PROJECT)" > .env
-endif
-
 # Every command is a PHONY, to avoid file naming confliction -> strengh comes from good habits!
 .PHONY: help
 help:
