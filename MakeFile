@@ -33,21 +33,21 @@ help:
 	@echo "=============================================================================="
 
 proxy-up:
-	docker-compose up -d --build portainer
+	docker-compose up --f docker-compose.proxy.yml -d --build portainer
 
 up:
-	docker-compose up -d geonetwork
-	docker-compose up -d geoserver
+	docker-compose up --f docker-compose.yml -d geonetwork
+	docker-compose up --f docker-compose.yml -d geoserver
 
 build:
-	docker-compose build geonetwork
-	docker-compose build geoserver
+	docker-compose --f docker-compose.yml build geonetwork
+	docker-compose --f docker-compose.yml build geoserver
 
 logs:
-	docker-compose logs --follow
+	docker-compose --f docker-compose.yml logs --follow
 
 down:
-	docker-compose down
+	docker-compose --f docker-compose.yml down
 
 reset: down up wait
 
