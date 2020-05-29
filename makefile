@@ -29,6 +29,7 @@ help:
 
 .PHONY: proxy-up
 proxy-up:
+	chmod 755 proxy-toolkit/uploadsize.conf
 	docker-compose -f docker-compose.proxy.yml up -d --build --remove-orphans portainer 
 
 .PHONY: up
