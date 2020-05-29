@@ -12,6 +12,7 @@ ifeq ($(strip $(DC_PROJECT)),)
   DOCKER_COMPOSE:= docker-compose
 else
   DOCKER_COMPOSE:= docker-compose --project-name $(DC_PROJECT)
+  echo "COMPOSE_PROJECT_NAME=$(DC_PROJECT)" > .env
 endif
 
 # Every command is a PHONY, to avoid file naming confliction -> strengh comes from good habits!
@@ -39,13 +40,11 @@ proxy-up:
 
 .PHONY: up
 up:
-	COMPOSE_PROJECT_NAME=$(DC_PROJECT)
 	docker-compose up -d --remove-orphans geonetwork
 	docker-compose up -d --remove-orphans geoserver
 
 .PHONY: build
 build:
-	COMPOSE_PROJECT_NAME=$(DC_PROJECT)
 	# Geonetwork build
 	chmod 755 geonetwork/conf/*
 	$(DOCKER_COMPOSE) -f docker-compose.yml build geonetwork
