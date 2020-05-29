@@ -4,7 +4,7 @@ services:
 #
 # Front zone containers
   proxy:
-    build: ./front-toolkit
+    build: ./proxy-toolkit
     restart: always
     container_name: proxy4${COMPOSE_PROJECT_NAME}
     ports:
