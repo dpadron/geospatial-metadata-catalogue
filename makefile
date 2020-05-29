@@ -35,12 +35,12 @@ help:
 
 .PHONY: proxy-up
 proxy-up:
-	docker-compose -f docker-compose.proxy.yml up -d --build portainer --remove-orphans
+	docker-compose -f docker-compose.proxy.yml up -d --build --remove-orphans portainer 
 
 .PHONY: up
 up:
-	docker-compose up -d geonetwork --remove-orphans
-	docker-compose up -d geoserver --remove-orphans
+	docker-compose up -d --remove-orphans geonetwork
+	docker-compose up -d --remove-orphans geoserver
 
 .PHONY: build
 build:
