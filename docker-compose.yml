@@ -48,8 +48,6 @@ services:
     volumes:
       - geoserver-data:/var/local/geoserver
       - geoserver-exts:/var/local/geoserver-exts   
-    env_file:
-      - ./scripts/docker/env/${SET_DOCKER_ENV}/geoserver.env
     networks:
       - apps
       - databases
