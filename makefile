@@ -39,11 +39,13 @@ proxy-up:
 
 .PHONY: up
 up:
+	set COMPOSE_PROJECT_NAME=$(DC_PROJECT)
 	docker-compose up -d --remove-orphans geonetwork
 	docker-compose up -d --remove-orphans geoserver
 
 .PHONY: build
 build:
+	set COMPOSE_PROJECT_NAME=$(DC_PROJECT)
 	# Geonetwork build
 	chmod 755 geonetwork/conf/*
 	$(DOCKER_COMPOSE) -f docker-compose.yml build geonetwork
