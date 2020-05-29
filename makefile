@@ -44,7 +44,11 @@ up:
 
 .PHONY: build
 build:
+	# Geonetwork build
+	chmod 755 geonetwork/conf/*
 	$(DOCKER_COMPOSE) -f docker-compose.yml build geonetwork
+	# Geoserver build
+	chmod 755 geoserver/conf/*
 	$(DOCKER_COMPOSE) -f docker-compose.yml build geoserver
 
 .PHONY: pull
