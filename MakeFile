@@ -53,5 +53,5 @@ reset: down up wait
 
 hardreset: pull build reset 
 
-wait:
+wait: 
 	sleep 5
