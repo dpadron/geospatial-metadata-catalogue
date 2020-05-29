@@ -46,7 +46,7 @@ up:
 build:
 	$(DOCKER_COMPOSE) --f docker-compose.yml build geonetwork
 	$(DOCKER_COMPOSE) --f docker-compose.yml build geoserver
-
+ 
 .PHONY: pull
 pull: 
 	$(DOCKER_COMPOSE) --f docker-compose.yml pull
