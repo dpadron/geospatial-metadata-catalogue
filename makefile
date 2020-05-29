@@ -5,6 +5,9 @@
 SHELL         = /bin/bash
 .SHELLFLAGS   = -o pipefail -c
 
+# For cleanup, get Compose project name from .env file
+DC_PROJECT?=$(shell cat .env | sed 's/^*=//')
+
 # Every command is a PHONY, to avoid file naming confliction -> strengh comes from good habits!
 .PHONY: help
 help:
@@ -37,10 +40,10 @@ up:
 build:
 	# Geonetwork build
 	chmod 755 geonetwork/conf/*
-	$(DOCKER_COMPOSE) -f docker-compose.yml build geonetwork
+	docker-compose -f docker-compose.yml build geonetwork
 	# Geoserver build
 	chmod 755 geoserver/conf/*
-	$(DOCKER_COMPOSE) -f docker-compose.yml build geoserver
+	docker-compose -f docker-compose.yml build geoserver
 
 .PHONY: pull
 pull: 
