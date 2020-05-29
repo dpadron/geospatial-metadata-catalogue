@@ -35,32 +35,32 @@ help:
 
 .PHONY: proxy-up
 proxy-up:
-	$(DOCKER_COMPOSE) up --f docker-compose.proxy.yml -d --build portainer --remove-orphans
+	$(DOCKER_COMPOSE) up -f docker-compose.proxy.yml -d --build portainer --remove-orphans
 
 .PHONY: up
 up:
-	$(DOCKER_COMPOSE) up --f docker-compose.yml -d geonetwork geoserver --remove-orphans
+	$(DOCKER_COMPOSE) up -f docker-compose.yml -d geonetwork geoserver --remove-orphans
 
 .PHONY: build
 build:
-	$(DOCKER_COMPOSE) --f docker-compose.yml build geonetwork
-	$(DOCKER_COMPOSE) --f docker-compose.yml build geoserver
+	$(DOCKER_COMPOSE) -f docker-compose.yml build geonetwork
+	$(DOCKER_COMPOSE) -f docker-compose.yml build geoserver
 
 .PHONY: pull
 pull: 
-	$(DOCKER_COMPOSE) --f docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker-compose.yml pull
 
 .PHONY: logs
 logs:
-	$(DOCKER_COMPOSE) --f docker-compose.yml logs --follow
+	$(DOCKER_COMPOSE) -f docker-compose.yml logs --follow
 
 .PHONY: down
 down:
-	$(DOCKER_COMPOSE) --f docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker-compose.yml down
 
 .PHONY: cleanup
 cleanup:
-	$(DOCKER_COMPOSE) --f docker-compose.yml stop
+	$(DOCKER_COMPOSE) -f docker-compose.yml stop
 	# 1st : kill all stopped containers
 	docker kill $(docker ps -q)
 	# 2nd : clean up all containers & images, without deleting static volumes (e.g. geoserver catalog)
