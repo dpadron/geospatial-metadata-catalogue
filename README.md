@@ -18,6 +18,8 @@ Docker based composition of a geospatial metadata catalogue solution including O
 * `make logs` ->  Follows whole SDI logs (Geoserver, Geonetwork, PostGIS, Client app)
 * `make down` ->  Brings the SDI down. 
 * `make cleanup` ->  Complete hard cleanup of images, containers, networks, volumes & data of the SDI
+* `make create-gn-indexes` -> Configure geonetwork elasticsearch indexes"
+* `make delete-gn-indexes` -> Delete configured geonetwork elasticsearch indexes"
 * `make reset` ->  Soft reboot of the whole SDI
 * `make update` ->  Update the whole stack
 * `make hard-reset` ->  All configuration except data and databases is deleted, then rebuilt

@@ -8,6 +8,9 @@ SHELL         = /bin/bash
 # For cleanup, get Compose project name from .env file
 DC_PROJECT?=$(shell cat .env | sed 's/^*=//')
 
+# Set elasticsearch host
+ES_HOST?=es01.sdi.elasticlabs.co
+
 # Every command is a PHONY, to avoid file naming confliction -> strengh comes from good habits!
 .PHONY: help
 help:
@@ -21,6 +24,8 @@ help:
 	@echo "  make logs                   # Follows whole SDI logs (Geoserver, Geonetwork, PostGIS, Client app)"
 	@echo "  make down                   # Brings the SDI down. "
 	@echo "  make cleanup                # Complete hard cleanup of images, containers, networks, volumes & data of the SDI"
+	@echo "  make create-gn-indexes      # Configure geonetwork elasticsearch indexes"
+	@echo "  make delete-gn-indexes      # Delete configured geonetwork elasticsearch indexes"
 	@echo "  make reset                  # Soft reboot of the whole SDI"
 	@echo "  make update                 # Update the whole stack"
 	@echo "  make hard-reset             # All configuration except data and databases is deleted, then rebuilt"
@@ -36,6 +41,7 @@ proxy-up:
 up:
 	docker-compose up -d --remove-orphans geonetwork
 	docker-compose up -d --remove-orphans geoserver
+	docker-compose up -d --remove-orphans es01
 
 .PHONY: build
 build:
@@ -58,6 +64,25 @@ logs:
 .PHONY: down
 down:
 	docker-compose down
+
+.PHONY: create-gn-indexes
+create-gn-indexes:
+	# From https://github.com/geonetwork/core-geonetwork/tree/3.10.x/es
+	# And https://geonetwork-opensource.org/manuals/trunk/en/maintainer-guide/statistics/setup-elasticsearch.html
+	curl -O https://raw.githubusercontent.com/geonetwork/core-geonetwork/3.10.x/es/config/features.json
+	curl -O https://raw.githubusercontent.com/geonetwork/core-geonetwork/3.10.x/es/config/records.json
+	curl -O https://raw.githubusercontent.com/geonetwork/core-geonetwork/3.10.x/es/config/searchlogs.json
+	#
+	# Indexes deployment :
+	curl -X PUT http://$(ES_HOST)/gn-features -d @features.json
+	curl -X PUT http://$(ES_HOST)/gn-records -d @records.json
+	curl -X PUT http://$(ES_HOST)/gn-searchlogs -d @searchlogs.json
+
+.PHONY: delete-gn-indexes
+delete-gn-indexes:
+	curl -X DELETE http://$(ES_HOST)/gn-records
+	curl -X DELETE http://$(ES_HOST)/gn-features
+	curl -X DELETE http://$(ES_HOST)/gn-searchlogs
 
 .PHONY: cleanup
 cleanup:
