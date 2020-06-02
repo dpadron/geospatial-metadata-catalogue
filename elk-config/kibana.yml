@@ -10,7 +10,7 @@ server.host: "kibana.sdi.elasticlabs.co"
 # Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath
 # from requests it receives, and to prevent a deprecation warning at startup.
 # This setting cannot end in a slash.
-#server.basePath: ""
+server.basePath: "/geonetwork/dashboards"
 
 # Specifies whether Kibana should rewrite requests that are prefixed with
 # `server.basePath` or require that they are rewritten by your reverse proxy.
@@ -22,7 +22,8 @@ server.host: "kibana.sdi.elasticlabs.co"
 #server.maxPayloadBytes: 1048576
 
 # The Kibana server's name.  This is used for display purposes.
-server.name: "kibana.sdi.elasticlabs.co"
+# -> managed in docker-compose file
+# server.name: "kibana.sdi.elasticlabs.co"
 
 # The URLs of the Elasticsearch instances to use for all your queries.
 elasticsearch.hosts: ["http://es01.sdi.elasticlabs.co"]
@@ -34,7 +35,7 @@ elasticsearch.preserveHost: true
 
 # Kibana uses an index in Elasticsearch to store saved searches, visualizations and
 # dashboards. Kibana creates a new index if the index doesn't already exist.
-#kibana.index: ".kibana"
+kibana.index: ".kibana"
 
 # The default application to load.
 #kibana.defaultAppId: "home"

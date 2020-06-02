@@ -83,7 +83,7 @@ services:
       - databases
 
 # Kibana :
-#   -> cluster setup documentation at https://www.elastic.co/guide/en/kibana/reference/7.4/docker.html
+#   -> cluster setup documentation at https://www.elastic.co/guide/en/kibana/7.4/docker.html
 #   -> Configuration guide at https://www.elastic.co/guide/en/kibana/7.4/settings.html
   kibana:
     image: docker.elastic.co/kibana/kibana:7.4.2
@@ -94,6 +94,7 @@ services:
     environment:
       - VIRTUAL_HOST=kibana.sdi.elasticlabs.co
       - VIRTUAL_PORT=5601
+      - SERVER_NAME=kibana.sdi.elasticlabs.co
       - ELASTICSEARCH_HOSTS=http://es01.sdi.elasticlabs.co
     volumes:
       - ./elk-config/kibana.yml:/usr/share/kibana/config/kibana.yml
