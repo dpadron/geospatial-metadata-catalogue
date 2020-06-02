@@ -89,9 +89,9 @@ services:
     depends_on:
       - es01
     environment:
-      - VIRTUAL_HOST=geonetwork.sdi.elasticlabs.co/dashboards
+      - VIRTUAL_HOST=kibana.sdi.elasticlabs.co
       - VIRTUAL_PORT=5601
-      - SERVER_NAME=geonetwork.sdi.elasticlabs.co/dashboards
+      - SERVER_NAME=kibana.sdi.elasticlabs.co
       - ELASTICSEARCH_HOSTS=http://es01.sdi.elasticlabs.co
     volumes:
       - ./elk-config/kibana.yml:/usr/share/kibana/config/kibana.yml
