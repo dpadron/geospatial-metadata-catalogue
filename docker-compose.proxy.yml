@@ -7,13 +7,9 @@ services:
     build: ./proxy-toolkit
     restart: always
     container_name: proxy4${COMPOSE_PROJECT_NAME}
-    # Activate those lines if standalone
-    #ports:
-    #  - 80:80
-    #  - 443:443
-    expose:
-      - "80"
-      - "443"
+    ports:
+      - 80:80
+      - 443:443
     environment:
       - VIRTUAL_HOST=*.sdi.elasticlabs.co
       - VIRTUAL_PORT=9000
@@ -51,7 +47,3 @@ volumes:
 
 networks:
   apps:
-  # Implementation specific. Comment if standalone deployment
-  server-backend:
-    external: 
-      name: frontend-https-revproxy_backend
