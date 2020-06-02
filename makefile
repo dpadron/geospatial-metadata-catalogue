@@ -63,7 +63,7 @@ logs:
 
 .PHONY: down
 down:
-	docker-compose down
+	docker-compose down --remove-orphans
 
 .PHONY: create-gn-indexes
 create-gn-indexes:

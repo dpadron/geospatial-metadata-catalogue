@@ -8,13 +8,19 @@ services:
     restart: always
     container_name: proxy4${COMPOSE_PROJECT_NAME}
     ports:
+      - 80:80
       - 443:443
+    environment:
+      - VIRTUAL_HOST=*.sdi.elasticlabs.co
+      - VIRTUAL_PORT=9000
     volumes:
       - vhost.d:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - apps
+      # Implementation specific. Add upper level proxy if needed
+      - server-backend
 
 #
 # Admin toolkit
@@ -22,10 +28,12 @@ services:
     image: portainer/portainer:latest
     container_name: portainer4${COMPOSE_PROJECT_NAME}
     restart: always
+    expose:
+      - "9000"
     depends_on:
       - proxy
     environment:
-      - VIRTUAL_HOST=portainer.sdi.elasticlabs.co
+      - VIRTUAL_HOST=admin.sdi.elasticlabs.co
       - VIRTUAL_PORT=9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -41,3 +49,7 @@ volumes:
 
 networks:
   apps:
+  # Implementation specific. Comment if standalone deployment
+  server-backend:
+    external: 
+      name: frontend-https-revproxy_backend
