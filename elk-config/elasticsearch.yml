@@ -11,11 +11,13 @@
 #
 # Cluster
 # Use a descriptive name for your cluster:
-cluster.name: gn-index
+# -> covered in docker-compose file. 
+#cluster.name: es-sdi-cluster
 
 #
 # Node 
-node.name: es01
+# -> covered in docker-compose file. 
+#node.name: es01
 # Add custom attributes to the node:
 #node.attr.rack: r1
 
