@@ -74,9 +74,9 @@ create-gn-indexes:
 	curl -O https://raw.githubusercontent.com/geonetwork/core-geonetwork/3.10.x/es/config/searchlogs.json
 	#
 	# Indexes deployment :
-	curl -X PUT http://$(ES_HOST)/gn-features -d @features.json
-	curl -X PUT http://$(ES_HOST)/gn-records -d @records.json
-	curl -X PUT http://$(ES_HOST)/gn-searchlogs -d @searchlogs.json
+	curl -X PUT http://$(ES_HOST)/gn-features -H 'Content-Type: application/json' -d @features.json
+	curl -X PUT http://$(ES_HOST)/gn-records -H 'Content-Type: application/json' -d @records.json
+	curl -X PUT http://$(ES_HOST)/gn-searchlogs -H 'Content-Type: application/json' -d @searchlogs.json
 
 .PHONY: delete-gn-indexes
 delete-gn-indexes:
