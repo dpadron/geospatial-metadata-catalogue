@@ -43,9 +43,7 @@ services:
 
 volumes:
   vhost.d:
-    name: ${COMPOSE_PROJECT_NAME}-proxy-vhosts
   html:
-    name: ${COMPOSE_PROJECT_NAME}-proxy-statics
 
 networks:
   apps:
