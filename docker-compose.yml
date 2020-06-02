@@ -87,6 +87,7 @@ services:
 #   -> Configuration guide at https://www.elastic.co/guide/en/kibana/7.4/settings.html
   kibana:
     image: docker.elastic.co/kibana/kibana:7.4.2
+    container_name: kibana4${COMPOSE_PROJECT_NAME}
     expose:
       - "5601"
     depends_on:
