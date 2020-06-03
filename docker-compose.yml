@@ -13,11 +13,11 @@ services:
     expose: 
       - "8080"
     environment:
-      - VIRTUAL_HOST: geonetwork.sdi.elasticlabs.co
-      - VIRTUAL_PORT: 8080
-      - DATA_DIR: /var/lib/geonetwork_data
-      - ES_URL: http://es01.sdi.elasticlabs.co
-      - KB_URL: http://kibana.sdi.elasticlabs.co
+      - VIRTUAL_HOST=geonetwork.sdi.elasticlabs.co
+      - VIRTUAL_PORT=8080
+      - DATA_DIR=/var/lib/geonetwork_data
+      - ES_URL=http://es01.sdi.elasticlabs.co
+      - KB_URL=http://kibana.sdi.elasticlabs.co
     volumes:
       - geonetwork-base: /usr/local/tomcat/webapps/geonetwork/WEB-INF
       - geonetwork-data: /var/lib/geonetwork_data
