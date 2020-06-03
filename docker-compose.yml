@@ -56,7 +56,6 @@ services:
       - node.name=es01
       - discovery.type=single-node
       - cluster.name=es-sdi-cluster
-      - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
