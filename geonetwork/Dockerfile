@@ -17,9 +17,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
        unzip
 
 RUN curl -fSL -o $GN_FILE \
-     https://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v${GN_VERSION}/geonetwork.war/download && \
-     echo "$GN_DOWNLOAD_MD5 *$GN_FILE" | md5sum -c && \
-     mkdir -p geonetwork && \
+     #https://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v${GN_VERSION}/geonetwork.war/download && \
+     #echo "$GN_DOWNLOAD_MD5 *$GN_FILE" | md5sum -c && \
+     #kdir -p geonetwork && \
+     # -> Backup solution
+     http://nightlybuild.geonetwork-opensource.org/3.10.x/geonetwork-3.10.3-SNAPSHOT-2020-06-04.war && \
      unzip -e $GN_FILE -d geonetwork && \
      rm $GN_FILE
 
