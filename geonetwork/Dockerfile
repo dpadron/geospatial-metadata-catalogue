@@ -29,8 +29,6 @@ RUN curl -fSL -o $GN_FILE \
      rm $GN_FILE
 
 #Copy context file
-RUN [ "$INSTALL_DIR" != "/usr/local/geonetwork" ] && \ 
-     sed -i "s#docBase=\"/usr/local/geonetwork\"#docBase=\"${INSTALL_DIR}\"" conf/ROOT.xml
 COPY conf/ROOT.xml $CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
 
 #Set geonetwork data dir
