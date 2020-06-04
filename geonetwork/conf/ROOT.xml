@@ -1,1 +1,1 @@
-<Context path="" docBase="../deploy/geonetwork.war" />
+<Context path="/" docBase="/usr/local/geonetwork" />
