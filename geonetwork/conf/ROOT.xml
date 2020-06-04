@@ -1,1 +1,1 @@
-<Context path="" docBase="/usr/local/tomcat/geonetwork" />
+<Context path="" docBase="/usr/local/tomcat/webapps/geonetwork" />
