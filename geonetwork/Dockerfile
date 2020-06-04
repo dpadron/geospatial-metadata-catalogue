@@ -19,13 +19,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -fSL -o $GN_FILE \
      #https://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v${GN_VERSION}/geonetwork.war/download && \
      #echo "$GN_DOWNLOAD_MD5 *$GN_FILE" | md5sum -c && \
-     #kdir -p geonetwork && \
+     #mkdir -p geonetwork && \
      # -> Backup solution
      http://nightlybuild.geonetwork-opensource.org/3.10.x/geonetwork-3.10.3-SNAPSHOT-2020-06-04.war && \
-     unzip -e $GN_FILE -d geonetwork && \
+     mkdir -p $INSTALL_DIR && \
+     unzip -e $GN_FILE -d $INSTALL_DIR && \
      rm $GN_FILE
 
 #Copy context file
+RUN [ "$INSTALL_DIR" != "/usr/local/geonetwork" ] && \ 
+     sed -i "s#docBase=\"/usr/local/geonetwork\"#docBase=\"${INSTALL_DIR}\"" conf/ROOT.xml
 COPY conf/ROOT.xml $CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
 
 #Set geonetwork data dir
