@@ -6,7 +6,7 @@ if [ "$1" = 'catalina.sh' ]; then
 	mkdir -p "$DATA_DIR"
 
 	#Set geonetwork data dir
-	mv ${INSTALL_DIR}/data/* $DATA_DIR
+	mv ${INSTALL_DIR}/WEB-INF/data/* $DATA_DIR
 	export CATALINA_OPTS="$CATALINA_OPTS -Dgeonetwork.dir=$DATA_DIR"
 fi
 
