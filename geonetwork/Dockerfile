@@ -1,10 +1,11 @@
 FROM tomcat:8.5.51-jdk8-openjdk-slim
 LABEL maintainer="Patrice MAUNY (patrice.mauny@gmail.com)"
 
-ENV GN_FILE geonetwork.war
-ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -server -Xms512m -Xmx2024m -XX:NewSize=512m -XX:MaxNewSize=1024m -XX:+UseConcMarkSweepGC"
+# Elasticsearch profile activated : -Dspring.profiles.active=es
+ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -server -Xms512m -Xmx2024m -XX:NewSize=512m -XX:MaxNewSize=1024m -XX:+UseConcMarkSweepGC -Dspring.profiles.active=es"
 
 #Added variables
+ENV GN_FILE geonetwork.war
 ENV GN_VERSION 3.10.2
 ENV GN_DOWNLOAD_MD5 86b18cd2ef60f11dd1dbe055054cee97
 ENV INSTALL_DIR /usr/local/geonetwork

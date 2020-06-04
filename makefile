@@ -86,9 +86,7 @@ delete-gn-indexes:
 
 .PHONY: cleanup
 cleanup:
-	docker-compose -f docker-compose.yml stop
-	# 1st : kill all stopped containers
-	docker kill $(docker ps -q)
+	docker-compose -f docker-compose.yml down --remove-orphans
 	# 2nd : clean up all containers & images, without deleting static volumes (e.g. geoserver catalog)
 	docker rm $(docker ps -a -q)
 	docker rmi $(docker images -q)
