@@ -133,7 +133,7 @@ services:
       - VIRTUAL_HOST=geohealthcheck.sdi.elasticlabs.co
       - VIRTUAL_PORT=8083
     env_file:
-      - ghc.env
+      - ./geohealthcheck/ghc.env
     volumes:
       - ghc_db:/GeoHealthCheck/DB
     networks:
@@ -144,7 +144,7 @@ services:
     container_name: ghc_runner4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
     env_file:
-      - ghc.env
+      - ./geohealthcheck/ghc.env
     entrypoint:
       - /run-runner.sh
     volumes:
