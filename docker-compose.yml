@@ -91,13 +91,13 @@ services:
 
   # pgAdmin & PostGIS
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     restart: unless-stopped
     container_name: pgadmin4${COMPOSE_PROJECT_NAME}
     expose: 
       - "80"
     volumes:
-      - '/private/var/lib/pgadmin:/var/lib/pgadmin'
+      - pgadmin_data:/var/lib/pgadmin
       - '/tmp/servers.json:/servers.json'
     environment:
       - VIRTUAL_HOST=pgadmin.sdi.elasticlabs.co
@@ -129,6 +129,8 @@ services:
     restart: unless-stopped
     expose:
       - "8083"
+    depends_on:
+      - ghc_runner
     environment:
       - VIRTUAL_HOST=geohealthcheck.sdi.elasticlabs.co
       - VIRTUAL_PORT=8083
@@ -160,6 +162,7 @@ volumes:
   es-data01:
   dbdata:
   dbbackups:
+  pgadmin_data:
   ghc_db:
 
 networks:
