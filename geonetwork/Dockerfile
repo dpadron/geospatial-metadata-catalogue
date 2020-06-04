@@ -2,15 +2,13 @@ FROM tomcat:8.5.51-jdk8-openjdk-slim
 LABEL maintainer="Patrice MAUNY (patrice.mauny@gmail.com)"
 
 ENV GN_FILE geonetwork.war
-# Default, applied only if not defined in docker-compose.yml file
-ENV DATA_DIR=$CATALINA_HOME/webapps/geonetwork/WEB-INF/data
 ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -server -Xms512m -Xmx2024m -XX:NewSize=512m -XX:MaxNewSize=1024m -XX:+UseConcMarkSweepGC"
 
-#Environment variables
+#Added variables
 ENV GN_VERSION 3.10.2
 ENV GN_DOWNLOAD_MD5 86b18cd2ef60f11dd1dbe055054cee97
 ENV INSTALL_DIR /usr/local/geonetwork
-ENV DATA_DIR /var/lib/geonetwork_data
+ENV DATA_DIR=/var/lib/geonetwork_data
 
 WORKDIR $CATALINA_HOME/webapps
 
