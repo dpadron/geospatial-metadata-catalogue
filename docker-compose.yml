@@ -15,8 +15,6 @@ services:
     environment:
       - VIRTUAL_HOST=geonetwork.sdi.elasticlabs.co
       - VIRTUAL_PORT=8080
-      - DATA_DIR=/var/lib/geonetwork_data
-      - INSTALL_DIR:/usr/local/geonetwork
       #- ES_URL=http://es01.sdi.elasticlabs.co
       #- KB_URL=http://kibana.sdi.elasticlabs.co
     volumes:

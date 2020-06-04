@@ -9,6 +9,8 @@ ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true 
 #Environment variables
 ENV GN_VERSION 3.10.2
 ENV GN_DOWNLOAD_MD5 86b18cd2ef60f11dd1dbe055054cee97
+ENV INSTALL_DIR /usr/local/geonetwork
+ENV DATA_DIR /var/lib/geonetwork_data
 
 WORKDIR $CATALINA_HOME/webapps
 
