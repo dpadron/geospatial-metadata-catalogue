@@ -19,7 +19,7 @@ services:
       - ES_URL=http://es01.sdi.elasticlabs.co
       - KB_URL=http://kibana.sdi.elasticlabs.co
     volumes:
-      - geonetwork-base:/usr/local/tomcat/webapps/geonetwork/WEB-INF
+      - geonetwork-base:/usr/local/tomcat/webapps/ROOT/WEB-INF
       - geonetwork-data:/var/lib/geonetwork_data
     networks:
       - apps

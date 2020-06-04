@@ -6,8 +6,8 @@ ENV DATA_DIR=$CATALINA_HOME/webapps/geonetwork/WEB-INF/data
 ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -server -Xms512m -Xmx2024m -XX:NewSize=512m -XX:MaxNewSize=1024m -XX:+UseConcMarkSweepGC"
 
 #Environment variables
-ENV GN_VERSION 3.10.0
-ENV GN_DOWNLOAD_MD5 86b18cd2ef60f11dd1dbe055054cee97
+ENV GN_VERSION 3.10.2
+ENV GN_DOWNLOAD_MD5 d2900cdda7aafaada326a36a86f6296a
 
 WORKDIR $CATALINA_HOME/webapps
 
