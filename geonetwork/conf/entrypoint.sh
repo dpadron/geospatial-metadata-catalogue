@@ -11,9 +11,10 @@ fi
 
 #
 # Setup Elasticsearch & Kibana from docker-compose file environment
-if [ "$ES_URL" != "" ]
+if [ "$ES_URL" != "" ]; then
 	
 	sed -i "s#es.url=#es.url=${ES_HOST}#" ${INSTALL_DIR}/WEB-INF/config.properties
+	
 	# User and password, if set in elasticsearch & compose file
 	[ "$ES_USERNAME" != "" ] && sed -i "s#es.username=#es.username=${ES_USERNAME}#" ${INSTALL_DIR}/WEB-INF/config.properties
 	[ "$ES_PASSWORD" != "" ] && sed -i "s#es.password=#es.password=${ES_PASSWORD}#" ${INSTALL_DIR}/WEB-INF/config.properties
