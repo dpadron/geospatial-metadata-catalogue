@@ -127,13 +127,11 @@ services:
     image: geopython/geohealthcheck:latest
     container_name: GeoHealthCheck4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
-    expose:
-      - "8083"
     depends_on:
       - ghc_runner
     environment:
       - VIRTUAL_HOST=geohealthcheck.sdi.elasticlabs.co
-      - VIRTUAL_PORT=8083
+      - VIRTUAL_PORT=80
     env_file:
       - ./geohealthcheck/ghc.env
     volumes:
