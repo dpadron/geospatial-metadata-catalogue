@@ -6,4 +6,3 @@ RUN apt-get update \
        osm2pgrouting
 
 COPY ./initdb-entrypoint.sh /docker-entrypoint-initdb.d/postgis.sh
-ENTRYPOINT [ "/bin/sh", "/docker-entrypoint-initdb.d/postgis.sh"]
