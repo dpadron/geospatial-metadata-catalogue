@@ -11,13 +11,13 @@ server.host: "0"
 # Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath
 # from requests it receives, and to prevent a deprecation warning at startup.
 # This setting cannot end in a slash.
-#server.basePath: "/dashboards"
+server.basePath: "/dashboards"
 
 # Specifies whether Kibana should rewrite requests that are prefixed with
 # `server.basePath` or require that they are rewritten by your reverse proxy.
 # This setting was effectively always `false` before Kibana 6.3 and will
 # default to `true` starting in Kibana 7.0.
-#server.rewriteBasePath: true
+server.rewriteBasePath: false
 
 # The maximum payload size in bytes for incoming server requests.
 #server.maxPayloadBytes: 1048576
@@ -27,7 +27,7 @@ server.host: "0"
 # server.name: "kibana.sdi.elasticlabs.co"
 
 # The URLs of the Elasticsearch instances to use for all your queries.
-elasticsearch.hosts: ["http://es01.sdi.elasticlabs.co"]
+elasticsearch.hosts: ["http://es01"]
 
 # When this setting's value is true Kibana uses the hostname specified in the server.host
 # setting. When the value of this setting is false, Kibana uses the hostname of the host
@@ -114,3 +114,6 @@ kibana.index: ".kibana"
 # Specifies locale to be used for all localizable strings, dates and number formats.
 # Supported languages are the following: English - en , by default , Chinese - zh-CN .
 #i18n.locale: "en"
+
+# Geonetwork specific
+xpack.monitoring.ui.container.elasticsearch.enabled: true
