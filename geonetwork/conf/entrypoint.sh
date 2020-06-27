@@ -13,7 +13,12 @@ fi
 # Setup Elasticsearch & Kibana from docker-compose file environment
 if [ "$ES_URL" != "" ]; then
 	
-	sed -i "s#es.url=#es.url=${ES_HOST}#" ${INSTALL_DIR}/WEB-INF/config.properties
+	sed -i "s#es.url=*#es.url=${ES_HOST}#" ${INSTALL_DIR}/WEB-INF/config.properties
+	# Elasticsearch indexes setup 
+	# TODO : full index creation automation when building geonetwork or elasticsearch directly
+	sed -i "s#es.index.features=*=*#es.index.features=gn-features#" ${INSTALL_DIR}/WEB-INF/config.properties
+	sed -i "s#es.index.records=*#es.index.records=gn-records#" ${INSTALL_DIR}/WEB-INF/config.properties
+	sed -i "s#es.index.searchlogs=*#es.index.searchlogs=gn-searchlogs#" ${INSTALL_DIR}/WEB-INF/config.properties
 	
 	# User and password, if set in elasticsearch & compose file
 	[ "$ES_USERNAME" != "" ] && sed -i "s#es.username=#es.username=${ES_USERNAME}#" ${INSTALL_DIR}/WEB-INF/config.properties
@@ -21,6 +26,6 @@ if [ "$ES_URL" != "" ]; then
 fi
 
 # Kibana
-[ "$KB_URL" != "" ] && sed -i "s#kb.url=#kb.url=${KB_URL}#" ${INSTALL_DIR}/WEB-INF/config.properties
+[ "$KB_URL" != "" ] && sed -i "s#kb.url=*#kb.url=${KB_URL}#" ${INSTALL_DIR}/WEB-INF/config.properties
 
 exec "$@"
