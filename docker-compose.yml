@@ -69,10 +69,10 @@ services:
     networks:
       - apps
 
-#
-# Backend databases & Admin tools
-# Elasticsearch :
-#   -> generic parameters are located here for configuration readability
+  #
+  # Backend databases & Admin tools
+  # Elasticsearch :
+  #   -> generic parameters are located here for configuration readability
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
     container_name: elastic01-4${COMPOSE_PROJECT_NAME}
@@ -96,8 +96,8 @@ services:
     networks:
       - apps
 
-# Kibana :
-#   -> Configuration guide at https://www.elastic.co/guide/en/kibana/7.4/settings.html
+  # Kibana :
+  #   -> Configuration guide at https://www.elastic.co/guide/en/kibana/7.4/settings.html
   kibana:
     image: docker.elastic.co/kibana/kibana:7.4.2
     container_name: kibana4${COMPOSE_PROJECT_NAME}
