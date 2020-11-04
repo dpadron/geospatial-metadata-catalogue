@@ -32,6 +32,8 @@ COPY conf/ROOT.xml $CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
 
 #Set geonetwork data dir
 COPY conf/entrypoint.sh /entrypoint.sh
+RUN chmod 755 entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["catalina.sh", "run"]
