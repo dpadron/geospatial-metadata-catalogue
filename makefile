@@ -9,7 +9,7 @@ SHELL         = /bin/bash
 DC_PROJECT?=$(shell cat .env | sed 's/^*=//')
 
 # Set elasticsearch host
-ES_HOST?=es01.sdi.elasticlabs.co
+ES_HOST?=es01:9200
 
 # Every command is a PHONY, to avoid file naming confliction -> strengh comes from good habits!
 .PHONY: help

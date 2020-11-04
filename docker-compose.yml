@@ -94,8 +94,6 @@ services:
     expose:
       - "9200"
     environment:
-      - VIRTUAL_HOST=es01.sdi.elasticlabs.co
-      - VIRTUAL_PORT=9200
       - node.name=es01
       - discovery.type=single-node
       - cluster.name=es-sdi-cluster
