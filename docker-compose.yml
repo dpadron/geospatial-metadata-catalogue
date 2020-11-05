@@ -22,7 +22,6 @@ services:
     networks:
       - sdi-proxy
       - sdi
-
 #
 # Applications
   geonetwork:
@@ -68,9 +67,15 @@ services:
       - nginx-entrypoint
     expose: 
       - "80"
+    environment: 
+      - VIRTUAL_HOST=tiles.sdi.elasticlabs.co
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=tiles.sdi.elasticlabs.co
+      - LETSENCRYPT_EMAIL=patrice.mauny@gmail.com
     volumes:
       - mbtiles-data:/data
     networks:
+      - sdi-proxy
       - sdi
   
     # Client application : MapStore2
