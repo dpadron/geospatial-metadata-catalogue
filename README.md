@@ -1,6 +1,17 @@
 # geospatial-metadata-catalogue
 Docker based composition of a geospatial metadata catalogue solution including OGC services harvesting capabilities
 
+#### Available endpoints
+* `tiles.sdi.<your-domain.ltd>` : Tileserver-GL home page and styles description 
+* `sdi.<your-domain.ltd>` : GeoNetwork Opensource
+* `sdi.<your-domain.ltd>/geoserver` : Geoserver
+* `sdi.<your-domain.ltd>/maps` : Mastore Web GIS application
+* `sdi.<your-domain.ltd>/notebooks` : JupyterLab notebooks application
+* `sdi.<your-domain.ltd>/pgadmin` : pgAdmin4
+* `sdi.<your-domain.ltd>/ghc_web` : GeoHealthCheck
+* `sdi.<your-domain.ltd>/kibana` : Kibana monitoring tool
+* `sdi.<your-domain.ltd>/grafana` : Grafana
+
 #### Preparation :
 * Install very useful tools: `# yum install git nano make htop elinks wget tshark nano tree`
 * Avoid `sudo`issues by adding your current username to the `docker` group: `# sudo groupadd docker && sudo usermod -aG docker <usename> && sudo systemctl restart docker`
