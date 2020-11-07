@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-source /root/.bashrc
 
 if [ -n "${CUSTOM_UID}" ];then
   echo "Using custom UID ${CUSTOM_UID}."
