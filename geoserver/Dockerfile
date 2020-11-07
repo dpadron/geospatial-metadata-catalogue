@@ -24,11 +24,6 @@ RUN set -x \
     && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN echo "DEBUG : ${GEOSERVER_DATA_DIR}" \
-    && echo "DEBUG : ${WAR_URL}" \
-    && echo "DEBUG : ${GEOSERVER_VERSION}" \
-    && echo "DEBUG : ${CATALINA_HOME}"
-
 #
 # Build (2/ ) Download & deploy GeoServer
 RUN mkdir ${GEOSERVER_DATA_DIR} \
@@ -71,9 +66,11 @@ RUN sed -i '\:</web-app>:i\
 
 #
 # Build (4/ ) Tomcat environment
+# CSRF disabled to enable proper AJAX work (https://docs.geoserver.org/stable/en/user/security/webadmin/csrf.html)
 ENV CATALINA_OPTS "-server -Djava.awt.headless=true \
 	-Xms${INITIAL_MEMORY} -Xmx${MAXIMUM_MEMORY} -XX:+UseConcMarkSweepGC -XX:NewSize=48m \
-	-DGEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR}"
+	-DGEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR} -DGEOSERVER_CSRF_DISABLED=true"
+
 # Create tomcat user to avoid root access. 
 RUN addgroup --gid 1099 tomcat && useradd -m -u 1099 -g tomcat tomcat \
     && chown -R tomcat:tomcat . \
