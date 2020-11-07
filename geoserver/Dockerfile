@@ -1,9 +1,20 @@
 FROM tomcat:9-jdk11
 LABEL maintainer="Elastic Labs <contact@elasticlabs.co>"
 
-ENV WAR_URL=http://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip
+ENV \
+    # Geoserver installation basics
+    GEOSERVER_VERSION=2.18.0 \
+    GEOSERVER_DATA_DIR=/var/local/geoserver \
+    GEOSERVER_ADMIN_USER=admin \
+    GEOSERVER_ADMIN_PASSWORD=myawesomegeoserver \
+    # https://docs.geoserver.org/stable/en/user/production/container.html#optimize-your-jvm
+    INITIAL_MEMORY=1G \
+    MAXIMUM_MEMORY=2G \
+    # Geoserver WAR location 
+    WAR_URL=http://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip 
 
-# Add Microsoft + some other fonts for SLD labels rendering
+#
+# Build (1/ ) Add Microsoft + some other fonts for SLD labels rendering
 RUN echo "deb http://httpredir.debian.org/debian stretch contrib" >> /etc/apt/sources.list
 RUN set -x \
 	&& apt-get -y update \
@@ -17,7 +28,8 @@ RUN echo "DEBUG : ${GEOSERVER_DATA_DIR}" \
     && echo "DEBUG : ${GS_VERSION}" \
     && echo "DEBUG : ${CATALINA_HOME}"
 
-# Download & deploy GeoServer
+#
+# Build (2/ ) Download & deploy GeoServer
 RUN mkdir ${GEOSERVER_DATA_DIR} \
     && mkdir /tmp/resources \
     # Get and deploy Geoserver version
@@ -36,7 +48,8 @@ RUN mkdir ${GEOSERVER_DATA_DIR} \
     && rm -rf ${CATALINA_HOME}/webapps/host-manager \
     && rm -rf ${CATALINA_HOME}/webapps/manager; 
 
-# Enable CORS
+#
+# Build (3/ ) Enable CORS
 RUN sed -i '\:</web-app>:i\
 <filter>\n\
     <filter-name>CorsFilter</filter-name>\n\
@@ -55,11 +68,11 @@ RUN sed -i '\:</web-app>:i\
     <url-pattern>/*</url-pattern>\n\
 </filter-mapping>' ${CATALINA_HOME}/webapps/geoserver/WEB-INF/web.xml
 
-# Tomcat environment
+#
+# Build (4/ ) Tomcat environment
 ENV CATALINA_OPTS "-server -Djava.awt.headless=true \
-	-Xms1024m -Xmx2048m -XX:+UseConcMarkSweepGC -XX:NewSize=48m \
+	-Xms${INITIAL_MEMORY} -Xmx${MAXIMUM_MEMORY} -XX:+UseConcMarkSweepGC -XX:NewSize=48m \
 	-DGEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR}"
-
 # Create tomcat user to avoid root access. 
 RUN addgroup --gid 1099 tomcat && useradd -m -u 1099 -g tomcat tomcat \
     && chown -R tomcat:tomcat . \
