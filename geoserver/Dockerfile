@@ -9,9 +9,10 @@ ENV \
     GEOSERVER_ADMIN_PASSWORD=myawesomegeoserver \
     # https://docs.geoserver.org/stable/en/user/production/container.html#optimize-your-jvm
     INITIAL_MEMORY=1G \
-    MAXIMUM_MEMORY=2G \
-    # Geoserver WAR location 
-    WAR_URL=http://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip 
+    MAXIMUM_MEMORY=2G
+
+# Geoserver WAR location 
+ENV WAR_URL=http://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip 
 
 #
 # Build (1/ ) Add Microsoft + some other fonts for SLD labels rendering
@@ -25,7 +26,7 @@ RUN set -x \
 
 RUN echo "DEBUG : ${GEOSERVER_DATA_DIR}" \
     && echo "DEBUG : ${WAR_URL}" \
-    && echo "DEBUG : ${GS_VERSION}" \
+    && echo "DEBUG : ${GEOSERVER_VERSION}" \
     && echo "DEBUG : ${CATALINA_HOME}"
 
 #
@@ -33,8 +34,8 @@ RUN echo "DEBUG : ${GEOSERVER_DATA_DIR}" \
 RUN mkdir ${GEOSERVER_DATA_DIR} \
     && mkdir /tmp/resources \
     # Get and deploy Geoserver version
-	&& wget -c --no-check-certificate ${WAR_URL} -O /tmp/resources/geoserver-${GS_VERSION}.zip \
-	&& unzip /tmp/resources/geoserver-${GS_VERSION}.zip -d /tmp/geoserver \
+	&& wget -c --no-check-certificate ${WAR_URL} -O /tmp/resources/geoserver-${GEOSERVER_VERSION}.zip \
+	&& unzip /tmp/resources/geoserver-${GEOSERVER_VERSION}.zip -d /tmp/geoserver \
 	&& unzip /tmp/geoserver/geoserver.war -d ${CATALINA_HOME}/webapps/geoserver \
     # Move necessary files outside default deployment directory
     && cp -r ${CATALINA_HOME}/webapps/geoserver/data/user_projections ${GEOSERVER_DATA_DIR} \
