@@ -50,8 +50,6 @@ services:
       - nginx-entrypoint
       - postgis
       - pgadmin
-    env_file:
-      - ./geoserver/.env  
     expose: 
       - "8080"
     volumes:

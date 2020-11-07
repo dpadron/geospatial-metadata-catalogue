@@ -1,7 +1,6 @@
 FROM tomcat:9-jdk11
 LABEL maintainer="Elastic Labs <contact@elasticlabs.co>"
 
-# Source setup variables from /geoserver/.env file
 ENV WAR_URL=http://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip
 
 # Add Microsoft + some other fonts for SLD labels rendering
