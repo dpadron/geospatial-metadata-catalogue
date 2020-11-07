@@ -12,6 +12,11 @@ RUN set -x \
     && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN echo "DEBUG : ${GEOSERVER_DATA_DIR}" \
+    && echo "DEBUG : ${WAR_URL}" \
+    && echo "DEBUG : ${GS_VERSION}" \
+    && echo "DEBUG : ${CATALINA_HOME}"
+
 # Download & deploy GeoServer
 RUN mkdir ${GEOSERVER_DATA_DIR} \
     && mkdir /tmp/resources \
