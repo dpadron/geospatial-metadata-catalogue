@@ -19,7 +19,7 @@ Here are some characteristics :
 | Option | Details |
 |---|---|
 | Inside the SDI | Find `pgadmin4` administration interface at `https://<your-awesome-domain.ltd/pgadmin>`, all should be already configured |
-| Commandline #1 | Use `docker-compose exec postgis /bin/bash` then `su - postgres` |
+| Commandline #1 | Use `docker-compose exec postgis /bin/bash` then `psql -U geoserver` |
 | Commendline #2 | The PostgreSQL utilities `pg_dump`, `pg_dumpall`, `pg_restore` and `psql` are included in the `pgadmin` container (https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html) |
 
 **Notes** 

@@ -22,12 +22,10 @@ ENV WAR_URL=http://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVE
 #
 # Build (1/ ) Add required fonts and utilities
 RUN echo "deb http://httpredir.debian.org/debian stretch contrib" >> /etc/apt/sources.list
-RUN wget -c --progress=bar --no-check-certificate http://ftp.br.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb && \
-    dpkg -i ttf-mscorefonts-installer_3.6_all.deb && rm ttf-mscorefonts-installer_3.6_all.deb
 RUN set -x \
 	&& apt-get -y update \
-	&& apt-get install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts \
-        build-essential libapr1-dev libssl-dev default-jdk libnetcdf-dev \
+	&& apt-get install -y ttf-mscorefonts-installer fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts \
+        build-essential libapr1-dev libssl-dev default-jdk libnetcdf-dev --fix-missing \
     # From here, install utilities requires for some extensions
     && apt-get install -y \
         wget zip curl --fix-missing; \
