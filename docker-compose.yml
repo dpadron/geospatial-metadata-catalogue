@@ -43,15 +43,17 @@ services:
       - sdi
 
   geoserver:
-    build: ./geoserver
+    image: ${COMPOSE_PROJECT_NAME}_geoserver:${GS_VERSION}
     container_name: geoserver4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
+    expose:
+      - "8080" 
+    build:
+      context: ./geoserver
     depends_on: 
       - nginx-entrypoint
       - postgis
       - pgadmin
-    expose: 
-      - "8080"
     volumes:
       - geoserver-data:/var/local/geoserver
       - geoserver-exts:/var/local/geoserver-exts   
@@ -133,25 +135,28 @@ services:
 
   # pgAdmin & PostGIS
   pgadmin:
-    image: dpage/pgadmin4:latest
-    restart: unless-stopped
+    image: ${COMPOSE_PROJECT_NAME}_pgadmin4:latest
     container_name: pgadmin4${COMPOSE_PROJECT_NAME}
-    expose: 
-      - "80"
+    restart: unless-stopped
+    expose:
+      - "80" 
+    build:
+      context: ./pgadmin
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-      - '/tmp/servers.json:/servers.json'
     env_file:
       - ./postgis/pgadmin.env
     networks:
       - sdi
 
   postgis:
-    build: ./postgis
-    restart: unless-stopped
+    image: ${COMPOSE_PROJECT_NAME}_pgadmin4:latest
     container_name: PostGIS4${COMPOSE_PROJECT_NAME}
-    expose: 
-      - "5432"
+    restart: unless-stopped
+    expose:
+      - "5432" 
+    build:
+      context: ./postgis
     stdin_open: true
     volumes:
       - dbdata:/var/lib/postgresql/data
