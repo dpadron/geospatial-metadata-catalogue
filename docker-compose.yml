@@ -150,7 +150,7 @@ services:
       - sdi
 
   postgis:
-    image: ${COMPOSE_PROJECT_NAME}_pgadmin4:latest
+    image: ${COMPOSE_PROJECT_NAME}_postgis:latest
     container_name: PostGIS4${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
     expose:
