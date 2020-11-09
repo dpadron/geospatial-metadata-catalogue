@@ -64,7 +64,6 @@ ENV \
 #
 # Build (2/ ) Download & deploy GeoServer
 RUN mkdir ${GEOSERVER_DATA_DIR} \
-    && mkdir /tmp/resources \
     # Get and deploy Geoserver version
 	&& wget -c --progress=bar --no-check-certificate ${WAR_URL} -O /tmp/resources/geoserver-${GEOSERVER_VERSION}.zip \
 	&& unzip /tmp/resources/geoserver-${GEOSERVER_VERSION}.zip -d /tmp/geoserver \
