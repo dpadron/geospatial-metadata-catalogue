@@ -93,8 +93,11 @@ RUN mkdir -p /tmp/ressources/stable_plugins /tmp/ressources/community_plugins /t
         if [ -z "${STABLE_EXTENSIONS}" ]; \
           then echo "No stable plugin marked for deployment"; \
         else \
-          echo "Enabling ${ext} stable plugin for GeoServer ${GEOSERVER_VERSION}"; \
+          echo "Enabling ${ext} stable plugin for GeoServer ${gs_majorver}"; \
           zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/ext-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
+          echo "$zipfile"; \
+          echo "${exts_path}"; \
+          echo "${jar_dir}"; \
           wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
           && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
         fi; \
@@ -109,11 +112,8 @@ RUN exts_path="/tmp/ressources/community_plugins" \
     for ext in $(echo "${COMMUNITY_EXTENSIONS}}" | tr ',' ' '); \
       do [[ -z "${COMMUNITY_EXTENSIONS}}" ]]; then echo "No stable plugin marked for deployment"; \
       else \
-        echo "Enabling ${ext} community plugin for GeoServer ${GEOSERVER_VERSION}"; \
+        echo "Enabling ${ext} community plugin for GeoServer ${gs_majorver}"; \
         zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/community-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
-        echo "$zipfile"; \
-        echo "${exts_path}"; \
-        echo "${jar_dir}"; \
         wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
         && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
       done; \
