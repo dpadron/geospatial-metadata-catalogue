@@ -111,6 +111,9 @@ RUN exts_path="/tmp/ressources/community_plugins" \
       else \
         echo "Enabling ${ext} community plugin for GeoServer ${GEOSERVER_VERSION}"; \
         zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/community-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
+        echo "$zipfile"; \
+        echo "${exts_path}"; \
+        echo "${jar_dir}"; \
         wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
         && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
       done; \
