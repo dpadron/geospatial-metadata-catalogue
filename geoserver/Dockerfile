@@ -25,10 +25,7 @@ RUN echo "deb http://httpredir.debian.org/debian stretch contrib" >> /etc/apt/so
 RUN set -x \
 	&& apt-get -y update \
 	&& apt-get install -y ttf-mscorefonts-installer fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts \
-        build-essential libapr1-dev libssl-dev default-jdk libnetcdf-dev --fix-missing \
-    # From here, install utilities requires for some extensions
-    && apt-get install -y \
-        wget zip curl --fix-missing; \
+        build-essential libapr1-dev libssl-dev default-jdk libnetcdf-dev wget zip curl --fix-missing \
     && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
