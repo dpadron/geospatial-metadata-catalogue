@@ -104,7 +104,9 @@ RUN mkdir -p /tmp/ressources/stable_plugins /tmp/ressources/community_plugins /t
     && rm -rf ${jar_dir}/* && rm -rf ${exts_path}/*
 #
 # -> 3.2 Get community extensions into /tmp/community_plugins then unzip into /tmp/gs_plugins and move *.jar files into GS libs folders
-RUN exts_path="/tmp/ressources/community_plugins"; \
+RUN exts_path="/tmp/ressources/community_plugins" \
+    && jar_dir="/tmp/ressources/gs_plugins" \
+    && gs_majorver=$(echo "${GEOSERVER_VERSION}" | grep -o '[0-9].[0-9][0-9]'); \
      # Get all required extensions
     for ext in $(echo "${COMMUNITY_EXTENSIONS}" | tr ',' ' '); \
       do \
