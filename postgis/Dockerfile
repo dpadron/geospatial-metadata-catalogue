@@ -34,7 +34,4 @@ RUN apt-get -y --purge autoremove  \
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/10_postgis.sh
 COPY ./update-postgis.sh /usr/local/bin/update-postgis.sh
-
-# Ensure we get up-to-date PostGIS version
-RUN chmod +x /usr/local/bin/update-postgis.sh \
-  && exec /usr/local/bin/update-postgis.sh
+RUN chmod +x /usr/local/bin/update-postgis.sh
