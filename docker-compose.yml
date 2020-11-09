@@ -142,6 +142,9 @@ services:
       - "80" 
     build:
       context: ./pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=contact@elasticlabs.co
+      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:
@@ -159,8 +162,6 @@ services:
     volumes:
       - dbdata:/var/lib/postgresql/data
       - dbbackups:/pg_backups
-    env_file:
-      - ./postgis/db.env
     networks:
       - sdi
 
