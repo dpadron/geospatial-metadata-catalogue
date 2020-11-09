@@ -158,6 +158,8 @@ services:
     build:
       context: ./postgis
     stdin_open: true
+    env_file: 
+      - ./postgis/.env
     volumes:
       - dbdata:/var/lib/postgresql/data
       - dbbackups:/pg_backups
