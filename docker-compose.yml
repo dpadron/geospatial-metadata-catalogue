@@ -144,8 +144,6 @@ services:
       context: ./pgadmin
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-    env_file:
-      - ./postgis/pgadmin.env
     networks:
       - sdi
 
