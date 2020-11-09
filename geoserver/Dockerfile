@@ -104,14 +104,14 @@ RUN mkdir -p /tmp/ressources/stable_plugins /tmp/ressources/community_plugins /t
     && rm -rf ${jar_dir}/* && rm -rf ${exts_path}/*
 #
 # -> 3.2 Get community extensions into /tmp/community_plugins then unzip into /tmp/gs_plugins and move *.jar files into GS libs folders
-RUN exts_path="/tmp/ressources/community_plugins" \
+RUN exts_path="/tmp/ressources/community_plugins"; \
      # Get all required extensions
     for ext in $(echo "${COMMUNITY_EXTENSIONS}" | tr ',' ' '); \
       do \
         if [ -z "${COMMUNITY_EXTENSIONS}" ]; \
-          then echo "No stable plugin marked for deployment"; \
+          then echo "No community extension marked for deployment"; \
         else \
-          echo "Enabling ${ext} stable plugin for GeoServer ${gs_majorver}"; \
+          echo "Enabling ${ext} community plugin for GeoServer ${gs_majorver}"; \
           zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/community-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
           wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip \
           && unzip ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip -d ${jar_dir}; \
