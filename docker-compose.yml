@@ -142,9 +142,8 @@ services:
       - "80" 
     build:
       context: ./pgadmin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=contact@elasticlabs.co
-      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+    env_file:
+      - ./pgadmin/.env
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:

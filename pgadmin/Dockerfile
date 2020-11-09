@@ -11,15 +11,16 @@ LABEL maintainer="Elasticlabs <contact@elasticlabs.co>"
 #    POSTGRES_DB=geoserver
 
 # >> Passfile creation
-#RUN mkdir -m 700 /var/lib/pgadmin/storage/${PGADMIN_DEFAULT_USER} \
+#RUN mkdir -m 700 /var/lib/pgadmin/storage/${PGADMIN_DEFAULT_USERSPACE} \
 #  # Replace with appropriate values
 #  && echo "pgadmin:5432:geoserver:geoserver:geoserver" > /tmp/pgpassfile \
 #  && chown pgadmin:pgadmin /tmp/pgpassfile \
-#  && mv /tmp/pgpassfile /var/lib/pgadmin/storage/${PGADMIN_DEFAULT_USER}/ \
-#  && chmod 600 /var/lib/pgadmin/storage/${PGADMIN_DEFAULT_USER}/pgpassfile
+#  && mv /tmp/pgpassfile /var/lib/pgadmin/storage/${PGADMIN_DEFAULT_USERSPACE}/ \
+#  && chmod 600 /var/lib/pgadmin/storage/${PGADMIN_DEFAULT_USERSPACE}/pgpassfile
 
 # >> Configuration file creation
 # Create 'servers.json' configuration file
+USER root
 RUN echo -e $'{ \n\
     "Servers": { \n\
         "1": { \n\
