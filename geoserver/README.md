@@ -1,4 +1,4 @@
-Dockerized GeoServer, built on top of [Docker's official tomcat image](https://hub.docker.com/_/tomcat/), with inpiration from [Kartoza](https://github.com/kartoza/docker-geoserver)
+Dockerized GeoServer, built on top of [Docker's official tomcat image](https://hub.docker.com/_/tomcat/), with inspiration from [Kartoza](https://github.com/kartoza/docker-geoserver)
 
 ## Features
 * Separate GEOSERVER_DATA_DIR location (on /var/local/geoserver).
