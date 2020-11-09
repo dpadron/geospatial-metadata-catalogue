@@ -95,11 +95,8 @@ RUN mkdir -p /tmp/ressources/stable_plugins /tmp/ressources/community_plugins /t
         else \
           echo "Enabling ${ext} stable plugin for GeoServer ${gs_majorver}"; \
           zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/ext-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
-          echo "$zipfile"; \
-          echo "${exts_path}"; \
-          echo "${jar_dir}"; \
-          wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
-          && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
+          wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip \
+          && unzip ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip -d ${jar_dir}; \
         fi; \
       done; \
     # Deploy all *jar files into WEB-INF/lib directory
