@@ -114,8 +114,8 @@ RUN exts_path="/tmp/ressources/community_plugins" \
       else \
         echo "Enabling ${ext} community plugin for GeoServer ${gs_majorver}"; \
         zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/community-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
-        wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
-        && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
+        wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip \
+        && unzip ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip -d ${jar_dir}; \
       done; \
     # Deploy all *jar files into WEB-INF/lib directory
     mv ${jar_dir}/*.jar ${CATALINA_HOME}/webapps/geoserver/WEB-INF/lib/ \
