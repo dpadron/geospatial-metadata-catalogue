@@ -89,12 +89,15 @@ RUN mkdir -p /tmp/ressources/stable_plugins /tmp/ressources/community_plugins /t
     && gs_majorver=$(echo "${GEOSERVER_VERSION}" | grep -o '[0-9].[0-9][0-9]'); \
     # Get all required extensions
     for ext in $(echo "${STABLE_EXTENSIONS}" | tr ',' ' '); \
-      do [[ -z "${STABLE_EXTENSIONS}" ]]; then echo "No stable plugin marked for deployment"; \
-      else \
-        echo "Enabling ${ext} stable plugin for GeoServer ${GEOSERVER_VERSION}"; \
-        zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/ext-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
-        wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
-        && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
+      do \
+        if [ -z "${STABLE_EXTENSIONS}" ]; \
+          then echo "No stable plugin marked for deployment"; \
+        else \
+          echo "Enabling ${ext} stable plugin for GeoServer ${GEOSERVER_VERSION}"; \
+          zipfile="https://build.geoserver.org/geoserver/${gs_majorver}.x/ext-latest/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip"; \
+          wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path} \
+          && unzip ${exts_path}/${zipfile} -d ${jar_dir}; \
+        fi; \
       done; \
     # Deploy all *jar files into WEB-INF/lib directory
     mv ${jar_dir}/*.jar ${CATALINA_HOME}/webapps/geoserver/WEB-INF/lib/ \
