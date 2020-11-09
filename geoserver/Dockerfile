@@ -56,6 +56,7 @@ fi;
 ###
 
 ENV \
+    GEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR} \
     # Opinionated : deploy base extensions
     STABLE_EXTENSIONS="monitor,importer,control-flow,inspire,gdal" \
     COMMUNITY_EXTENSIONS="backup-restore,geostyler,imagemosaic-jdbc,importer-jdbc,mbtiles,mbtiles-store,ogcapi,wps-download" \
@@ -63,8 +64,7 @@ ENV \
     LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/apr/lib:/opt/libjpeg-turbo/lib64:/usr/lib:/usr/lib/x86_64-linux-gnu" \
     MAX_FILTER_RULES=20 \
     # CSRF disabled to enable proper AJAX work (https://docs.geoserver.org/stable/en/user/security/webadmin/csrf.html)
-    GEOSERVER_CSRF_DISABLED=true\
-    GEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR}
+    GEOSERVER_CSRF_DISABLED=true    
 
 #
 # Build (2/ ) Download & deploy GeoServer
@@ -145,7 +145,7 @@ RUN sed -i '\:</web-app>:i\
 #
 # Build (5/ ) Tomcat environment
 ENV CATALINA_OPTS "-server -Djava.awt.headless=true \
-	-Xms${INITIAL_MEMORY} -Xmx${MAXIMUM_MEMORY} -XX:+UseConcMarkSweepGC -XX:NewSize=48m"
+	-Xms${INITIAL_MEMORY} -Xmx${MAXIMUM_MEMORY} -XX:+UseConcMarkSweepGC -XX:NewSize=48m -DGEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR}"
 
 # Create tomcat user to avoid root access. 
 RUN addgroup --gid 1099 tomcat && useradd -m -u 1099 -g tomcat tomcat \
