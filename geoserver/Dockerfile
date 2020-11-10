@@ -54,7 +54,7 @@ ENV \
     GEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR} \
     # Opinionated : deploy base extensions
     STABLE_EXTENSIONS="monitor,importer,control-flow,inspire,gdal" \
-    COMMUNITY_EXTENSIONS="backup-restore,geostyler,mbtiles,mbtiles-store,ogcapi,wps-download" \
+    COMMUNITY_EXTENSIONS="backup-restore,geostyler,imagemosaic-jdbc,importer-jdbc,ogcapi,wps-download" \
     GDAL_DATA=/usr/local/gdal_data \
     LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/apr/lib:/opt/libjpeg-turbo/lib64:/usr/lib:/usr/lib/x86_64-linux-gnu" \
     MAX_FILTER_RULES=20 \
