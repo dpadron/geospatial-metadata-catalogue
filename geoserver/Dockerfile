@@ -118,7 +118,7 @@ RUN exts_path="/tmp/ressources/community_plugins" \
           wget -c --progress=bar --no-check-certificate ${zipfile} -O ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip \
           && unzip ${exts_path}/geoserver-${gs_majorver}-SNAPSHOT-${ext}-plugin.zip -d ${jar_dir}; \
         fi; \
-      done; \
+      done;
     # Deploy all *jar files into WEB-INF/lib directory
    # mv ${jar_dir}/*.jar ${CATALINA_HOME}/webapps/geoserver/WEB-INF/lib/ \
    # && rm -rf ${jar_dir} && rm -rf ${exts_path}
