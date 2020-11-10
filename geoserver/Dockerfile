@@ -120,8 +120,8 @@ RUN exts_path="/tmp/ressources/community_plugins" \
         fi; \
       done; \
     # Deploy all *jar files into WEB-INF/lib directory
-    mv ${jar_dir}/*.jar ${CATALINA_HOME}/webapps/geoserver/WEB-INF/lib/ \
-    && rm -rf ${jar_dir} && rm -rf ${exts_path}
+   # mv ${jar_dir}/*.jar ${CATALINA_HOME}/webapps/geoserver/WEB-INF/lib/ \
+   # && rm -rf ${jar_dir} && rm -rf ${exts_path}
 ###
 
 #
