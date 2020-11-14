@@ -11,7 +11,7 @@ ENV \
     INITIAL_MEMORY=1G \
     MAXIMUM_MEMORY=2G
 
-# ->vGDAL Native libes
+# -> GDAL Native libes
 # Ativate if specific files support is needed
 # https://github.com/geosolutions-it/imageio-ext/wiki/GDAL-framework-and-plugins
 ARG GDAL_NATIVE=false
@@ -54,7 +54,7 @@ ENV \
     GEOSERVER_DATA_DIR=${GEOSERVER_DATA_DIR} \
     # Opinionated : deploy base extensions
     STABLE_EXTENSIONS="monitor,importer,control-flow,inspire,gdal" \
-    #COMMUNITY_EXTENSIONS="backup-restore,geostyler,imagemosaic-jdbc,importer-jdbc,ogcapi,wps-download" \
+    #COMMUNITY_EXTENSIONS="backup-restore,geostyler,imagemosaic-jdbc,importer-jdbc,wps-download" \
     GDAL_DATA=/usr/local/gdal_data \
     LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/apr/lib:/opt/libjpeg-turbo/lib64:/usr/lib:/usr/lib/x86_64-linux-gnu" \
     MAX_FILTER_RULES=20 \
